@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { appRoutes } from './routes';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { NavComponent } from './nav/nav.component';
@@ -42,6 +43,7 @@ export function tokenGetter(): string {
     FormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
