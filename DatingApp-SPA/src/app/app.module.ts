@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
@@ -52,6 +53,7 @@ export function tokenGetter(): string {
   imports: [
     BrowserModule,
     HttpClientModule,
+    FileUploadModule,
     FormsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
