@@ -1,5 +1,6 @@
 import { EventEmitter, Input, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertifyService } from '../_services/alertify.service';
 import { AuthService } from '../_services/auth.service';
 
@@ -11,18 +12,28 @@ import { AuthService } from '../_services/auth.service';
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter(false);
   model: any = {};
-
+  registerForm: FormGroup;
   constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
+    this.registerForm = new FormGroup({
+      username: new FormControl('Hello', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
+    }, this.passwordMatchValidator);
+  }
+
+  passwordMatchValidator(g: FormGroup): any {
+    return g.get('password').value === g.get('confirmPassword').value ? null : { mismatch: true };
   }
 
   register(): any {
-    this.authService.register(this.model).subscribe(() => {
-      this.alertify.success('Registration succesfull!');
-    }, error => {
-      this.alertify.error(error);
-    });
+    // this.authService.register(this.model).subscribe(() => {
+    //   this.alertify.success('Registration succesfull!');
+    // }, error => {
+    //   this.alertify.error(error);
+    // });
+    console.log(this.registerForm.value);
   }
 
   cancel(): any {
