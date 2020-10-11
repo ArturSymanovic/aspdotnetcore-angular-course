@@ -110,7 +110,10 @@ namespace DatingApp.API.Data
 
         public async Task<Message> GetMessage(int id)
         {
-            return await _context.Messages.FirstOrDefaultAsync(m => m.Id == id);
+            return await _context.Messages
+                            .Include(u=>u.Sender).ThenInclude(p => p.Photos)
+                            .Include(u=>u.Recipient).ThenInclude(p => p.Photos)
+                            .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<PagedList<Message>> GetMessagesForUser(MessageParams messageParams)
