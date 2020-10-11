@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { Message } from 'src/app/_models/message';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -24,8 +25,21 @@ export class MemberMessagesComponent implements OnInit {
   }
 
   loadMessages(): void {
+    const currentUserId = +this.authService.decodedToken.nameid;
     this.userService
       .getMessageThread(this.authService.decodedToken.nameid, this.recipientId)
+      .pipe(
+        tap((messages: Message[]) => {
+          for (const message of messages) {
+            if (
+              message.isRead === false &&
+              message.recipientId === currentUserId
+            ) {
+              this.userService.markAsRead(currentUserId, message.id);
+            }
+          }
+        })
+      )
       .subscribe(
         (messages) => {
           this.messages = messages;
@@ -39,9 +53,7 @@ export class MemberMessagesComponent implements OnInit {
   sendMessage(): void {
     this.newMessage.recipientId = this.recipientId;
     this.userService
-      .sendMessage(
-        this.authService.decodedToken.nameid,
-        this.newMessage)
+      .sendMessage(this.authService.decodedToken.nameid, this.newMessage)
       .subscribe(
         (message: Message) => {
           this.messages.unshift(message);

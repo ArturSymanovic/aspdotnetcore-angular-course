@@ -132,4 +132,11 @@ export class UserService {
       {}
     );
   }
+
+  markAsRead(userId: number, id: number): any {
+    this.http.post(
+      this.baseUrl + 'users/' + userId + '/messages/' + id + '/read',
+      {}
+    ).subscribe();
+  }
 }
