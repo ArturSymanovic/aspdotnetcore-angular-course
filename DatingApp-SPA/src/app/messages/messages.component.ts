@@ -52,4 +52,9 @@ export class MessagesComponent implements OnInit {
         }
       );
   }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadMessages();
+  }
 }
