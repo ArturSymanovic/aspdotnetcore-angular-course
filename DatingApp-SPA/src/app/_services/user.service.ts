@@ -125,4 +125,11 @@ export class UserService {
   sendMessage(id: number, message: Message): any {
     return this.http.post(this.baseUrl + 'users/' + id + '/messages', message);
   }
+
+  deleteMessage(userId: number, id: number): any {
+    return this.http.post(
+      this.baseUrl + 'users/' + userId + '/messages/' + id,
+      {}
+    );
+  }
 }
