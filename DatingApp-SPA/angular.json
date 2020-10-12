@@ -16,7 +16,7 @@
             "allowedCommonJsDependencies": [
               "alertifyjs"
            ],
-            "outputPath": "dist/DatingApp-SPA",
+            "outputPath": "../DatingApp.API/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

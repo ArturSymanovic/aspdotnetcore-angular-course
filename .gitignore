@@ -6,7 +6,7 @@
 DatingApp.API/appsettings.json
 **/*.db
 
-
+DatingApp.API/wwwroot
 
 # User-specific files
 *.rsuser
